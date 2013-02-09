@@ -1,7 +1,7 @@
 WcfServiceCallLogger
 ====================
 
-lightweight  logger for tracing WCF service invocations. Provides config file based logging of WCF service method invocations. Analyses clkient side SOAP message content during message despatch pipeline and logs output using NLog
+lightweight  logger for tracing WCF service invocations. Provides config file based logging of WCF service method invocations. Analyses client side SOAP message content during message despatch pipeline and logs output using NLog
 
 TODOs (feel free to volunteer)  
 
