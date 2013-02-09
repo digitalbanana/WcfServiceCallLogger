@@ -1,9 +1,9 @@
 WcfServiceCallLogger
 ====================
 
-lightweight  logger for tracing WCF service invocations. Provides config file based logging of WCF service method invocations. Analyses client side SOAP message content during message despatch pipeline and logs output using NLog
+lightweight logger for tracing WCF service invocations. Provides config file based logging of WCF service method invocations. Analyses client side SOAP message content during message despatch pipeline and logs output using NLog
 
-TODOs (feel free to volunteer)  
+TODOs (pull requests welcome)  
 
 1) Adding Service Side logging functionality  
 
@@ -13,7 +13,7 @@ TODOs (feel free to volunteer)
 
 4) Decouple logging implementation  
 
-5) AOB?
+5)Replay Functionality?
 
 
 WcfServiceCallLogger is on Nuget
