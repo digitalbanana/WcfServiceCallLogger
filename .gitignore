@@ -1,0 +1,16 @@
+[Oo]bj
+[Bb]in
+*.user
+*.suo
+*.[Cc]ache
+*.bak
+*.ncb
+*.log 
+*.DS_Store
+[Tt]humbs.db 
+*ReSharper*
+*resharper*
+Ankh.NoLoad
+/Legacy/thecodeface/thecodefaceblog/Content/Samples/Images/*
+*TestResults*
+*/packages/*

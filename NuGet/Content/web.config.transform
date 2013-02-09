@@ -1,0 +1,51 @@
+<configuration>
+	<nlog xmlns="http://www.nlog-project.org/schemas/NLog.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+		<targets>
+			<target xsi:type="Console" name="c" />
+			<target name="f" xsi:type="File" fileName="ServicesCalls.log" layout="${message}${onexception:|EXCEPTION OCCURRED\:${exception:format=type,tostring,method:maxInnerExceptionLevel=5:innerFormat=shortType,tostring,method}${newline}}" archiveEvery="Day" archiveNumbering="Sequence" maxArchiveFiles="14" />
+			<target xsi:type="Database"
+							name="db"
+							dbProvider="sqlserver"
+							connectionString="YOUR CONNECTION STRING HERE">
+				<commandText>
+					INSERT INTO LogTable (timestamp, [level], logger, [requestid], [invocation]) SELECT @timestamp, @level, @logger, @requestid, @invocation
+				</commandText>
+				<parameter name="@timestamp" layout="${date}"/>
+				<parameter name="@level" layout="${level}"/>
+				<parameter name="@logger" layout="${logger}"/>
+				<parameter name="@requestid" layout="${event-context:item=HttpRequestId}"/>
+				<parameter name="@invocation" layout="${message}"/>
+			</target>
+		</targets>
+		<rules>
+      <!--uncomment to write log to database-->
+			<!--<logger name="*" minlevel="Debug" writeTo="f,c,db" />-->
+      <logger name="*" minlevel="Debug" writeTo="f,c" />
+		</rules>
+	</nlog>
+	  <system.webServer>
+		<modules runAllManagedModulesForAllRequests="true" >
+				<add name="WcfMessageCorrelationModule" type="WcfServiceCallLogger.Modules.WcfMessageCorrelationModule, WcfServiceCallLogger, Version=1.0.0.0, Culture=neutral"/>
+		</modules>
+  </system.webServer>
+ <system.serviceModel>
+		 <extensions>
+		 <behaviorExtensions>
+			 <add name="ServiceCallLogger" type="WcfServiceCallLogger.BehaviourExtensions.ClientBehaviourExtension, WcfServiceCallLogger, Version=1.0.0.0, Culture=neutral"/>
+		 </behaviorExtensions>
+	 </extensions>
+	 <behaviors>
+		 <endpointBehaviors>
+			 <!-- uncommenting this section will add the behavior to all client endpoints without a named behaviourConfiguration specified -->
+       <!--
+       <behavior>
+				 <ServiceCallLogger/>
+			 </behavior>-->
+       <!-- to apply the behavior to a specific service set behaviorConfiguration="CallLogging" on the client endpoint binding-->
+			 <behavior name="CallLogging">
+				 <ServiceCallLogger/>
+			 </behavior>
+		 </endpointBehaviors>
+	 </behaviors>
+	 </system.serviceModel>
+</configuration>

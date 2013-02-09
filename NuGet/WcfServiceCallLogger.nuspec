@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>WcfServiceCallLogger</id>
+    <version>1.0.0</version>
+    <authors>Dave Lowe</authors>
+    <owners>DigitalBanana</owners>
+    <!--<licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl>-->
+    <projectUrl>https://github.com/DigitalBanana/WcfServiceCallLogger</projectUrl>
+    <!--<iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>-->
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Lightweight logging utility for capturing WCF Service invocations including parameters and values</description>
+    <!--<releaseNotes>Summary of changes made in this release of the package.</releaseNotes>-->
+    <copyright>Copyright 2013</copyright>
+    <tags>WCF Logging</tags>
+    <dependencies>
+      <dependency id="nLog" version="2.0" />
+    </dependencies>
+  </metadata>
+</package>
