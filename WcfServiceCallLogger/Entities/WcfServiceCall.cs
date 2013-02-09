@@ -27,7 +27,7 @@
 		/// <value>
 		/// The name of the method.
 		/// </value>
-		public string MethodName { get; set; }
+		public string ActionName { get; set; }
 
 		/// <summary>
 		/// Gets or sets the parameters passed into the method invocation.
@@ -68,7 +68,7 @@
 			{
 				var linqedMessage = XDocument.Parse(message.ToString());
 				var action =
-					linqedMessage.Root.DescendantsAndSelf().Single(x => x.Name.LocalName.Equals(Constants.WCF_MESSAGE_SERVICE_METHOD_NAME, StringComparison.InvariantCultureIgnoreCase));
+					linqedMessage.Root.DescendantsAndSelf().Single(x => x.Name.LocalName.Equals(Constants.WCF_ACTION_NAME, StringComparison.InvariantCultureIgnoreCase));
 
 				string actionNodeValue = action.Value;
 
@@ -78,12 +78,12 @@
 				ServiceName = actionNodeValue
 					.Substring(preServiceNameSlashPosition + 1, actionNodeValue.Length - preServiceNameSlashPosition - (actionNodeValue.Length - preActionNameSlashPosition) - 1 );
 
-				MethodName = actionNodeValue
+				ActionName = actionNodeValue
 					.Substring(preActionNameSlashPosition + 1, actionNodeValue.Length - preActionNameSlashPosition - 1);
 
 				var ps =
 					linqedMessage.Root.DescendantsAndSelf()
-								 .Where(x => x.Name.LocalName.Equals(MethodName, StringComparison.InvariantCultureIgnoreCase))
+								 .Where(x => x.Name.LocalName.Equals(ActionName, StringComparison.InvariantCultureIgnoreCase))
 								 .Single()
 								 .Descendants()
 								 .ToList();
@@ -112,7 +112,7 @@
 			var result = new StringBuilder();
 			var paramsResult = new StringBuilder();
 
-			result.AppendFormat("{0}:{1}(", ServiceName, MethodName);
+			result.AppendFormat("{0}:{1}(", ServiceName, ActionName);
 
 			for (int i = 0; i < Parameters.Count; i++)
 			{

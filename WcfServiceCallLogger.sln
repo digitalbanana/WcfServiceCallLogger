@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nuget", "Nuget", "{46F8D4E6-9F1A-483B-91E3-4BE6E7FA74EA}"
 	ProjectSection(SolutionItems) = preProject
 		NuGet\WcfServiceCallLogger.nuspec = NuGet\WcfServiceCallLogger.nuspec
+		NuGet\Content\WcfServiceCallLogger.sql = NuGet\Content\WcfServiceCallLogger.sql
 		NuGet\Content\web.config.transform = NuGet\Content\web.config.transform
 	EndProjectSection
 EndProject

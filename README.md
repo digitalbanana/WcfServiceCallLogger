@@ -13,7 +13,7 @@ TODOs (feel free to volunteer)
 
 4) Decouple logging implementation  
 
-5) AOB?
+5) Replay results facility?
 
 
 WcfServiceCallLogger is on Nuget

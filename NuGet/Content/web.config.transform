@@ -1,4 +1,9 @@
 <configuration>
+  <configSections>
+    <!-- BEGIN NLog reference -->
+    <section name="nlog" type="NLog.Config.ConfigSectionHandler, NLog" />
+    <!-- End NLog reference -->
+  </configSections>
 	<nlog xmlns="http://www.nlog-project.org/schemas/NLog.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<targets>
 			<target xsi:type="Console" name="c" />
@@ -8,13 +13,15 @@
 							dbProvider="sqlserver"
 							connectionString="YOUR CONNECTION STRING HERE">
 				<commandText>
-					INSERT INTO LogTable (timestamp, [level], logger, [requestid], [invocation]) SELECT @timestamp, @level, @logger, @requestid, @invocation
-				</commandText>
+          INSERT INTO LogTable (timestamp, [level], logger, [requestid], [service], [action], [invocation]) SELECT @timestamp, @level, @logger, @requestid, @service, @action, @invocation
+        </commandText>
 				<parameter name="@timestamp" layout="${date}"/>
 				<parameter name="@level" layout="${level}"/>
 				<parameter name="@logger" layout="${logger}"/>
 				<parameter name="@requestid" layout="${event-context:item=HttpRequestId}"/>
-				<parameter name="@invocation" layout="${message}"/>
+				<parameter name="@service" layout="${event-context:item=Action}"/>
+        <parameter name="@action" layout="${event-context:item=ServiceName}"/>
+        <parameter name="@invocation" layout="${message}"/>
 			</target>
 		</targets>
 		<rules>

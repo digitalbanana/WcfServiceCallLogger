@@ -13,6 +13,10 @@
 		/// <summary>
 		/// The name of the xml element within the WCF message that indicates the service method being invoked
 		/// </summary>
-		public const string WCF_MESSAGE_SERVICE_METHOD_NAME = "Action";
+		public const string WCF_ACTION_NAME = "Action";
+
+
+        public const string WCF_SERVICE_NAME = "ServiceName";
+        
 	}
 }

@@ -27,7 +27,7 @@
 
 			//Assert
 			Assert.IsNotNull(result);
-			Assert.AreEqual("DoSomething", result.MethodName);
+			Assert.AreEqual("DoSomething", result.ActionName);
 
 			Assert.AreEqual("IService", result.ServiceName);
 

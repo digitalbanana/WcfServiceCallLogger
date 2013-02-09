@@ -38,7 +38,9 @@
 			}
 
 			LogEventInfo logEvent = new LogEventInfo(LogLevel.Debug, "MessageInspector", m.ToString());
-			logEvent.Properties[Constants.HTTP_REQUEST_ID] = requestId;
+			logEvent.Properties[Constants.WCF_SERVICE_NAME] = m.ServiceName;
+            logEvent.Properties[Constants.WCF_ACTION_NAME] = m.ActionName;
+            logEvent.Properties[Constants.HTTP_REQUEST_ID] = requestId;
 			logger.Log(logEvent);
 
 			return null;
