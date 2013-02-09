@@ -14,3 +14,8 @@ TODOs (feel free to volunteer)
 4) Decouple logging implementation  
 
 5) AOB?
+
+
+WcfServiceCallLogger is on Nuget
+
+http://nuget.org/packages/WcfServiceCallLogger/
