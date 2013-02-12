@@ -37,7 +37,7 @@
 				requestId = s.ToString();
 			}
 
-			LogEventInfo logEvent = new LogEventInfo(LogLevel.Debug, "MessageInspector", m.ToString());
+            LogEventInfo logEvent = new LogEventInfo(LogLevel.Debug, "BeforeSendRequest", m.ToString());
 			logEvent.Properties[Constants.WCF_SERVICE_NAME] = m.ServiceName;
             logEvent.Properties[Constants.WCF_ACTION_NAME] = m.ActionName;
             logEvent.Properties[Constants.HTTP_REQUEST_ID] = requestId;
@@ -53,7 +53,21 @@
 		/// <param name="correlationState">Correlation state data.</param>
 		public void AfterReceiveReply(ref Message reply, object correlationState)
 		{
-			
+            //var m = new WcfServiceCall(reply);
+
+            string requestId = "Not set";
+
+            var s = HttpContext.Current.Items[Constants.HTTP_REQUEST_ID];
+            if (s != null)
+            {
+                requestId = s.ToString();
+            }
+
+            LogEventInfo logEvent = new LogEventInfo(LogLevel.Debug, "AfterReceiveReply","");
+
+            logEvent.Properties[Constants.HTTP_REQUEST_ID] = requestId;
+            logger.Log(logEvent);
+            
 		}
 
 		#endregion

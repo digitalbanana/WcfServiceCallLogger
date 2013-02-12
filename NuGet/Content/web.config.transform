@@ -7,7 +7,8 @@
 	<nlog xmlns="http://www.nlog-project.org/schemas/NLog.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<targets>
 			<target xsi:type="Console" name="c" />
-			<target name="f" xsi:type="File" fileName="ServicesCalls.log" layout="${message}${onexception:|EXCEPTION OCCURRED\:${exception:format=type,tostring,method:maxInnerExceptionLevel=5:innerFormat=shortType,tostring,method}${newline}}" archiveEvery="Day" archiveNumbering="Sequence" maxArchiveFiles="14" />
+			<target name="f" xsi:type="File" fileName="ServicesCalls.log" layout="@timestamp|@level|@logger|${event-context:item=HttpRequestId}|${event-context:item=ServiceName}|${event-context:item=Action}|${message}${onexception:|EXCEPTION OCCURRED\:${exception:format=type,tostring,method:maxInnerExceptionLevel=5:innerFormat=shortType,tostring,method}${newline}}" archiveEvery="Day" archiveNumbering="Sequence" maxArchiveFiles="14" />
+      <!-- database target 
 			<target xsi:type="Database"
 							name="db"
 							dbProvider="sqlserver"
@@ -19,10 +20,11 @@
 				<parameter name="@level" layout="${level}"/>
 				<parameter name="@logger" layout="${logger}"/>
 				<parameter name="@requestid" layout="${event-context:item=HttpRequestId}"/>
-				<parameter name="@service" layout="${event-context:item=Action}"/>
-        <parameter name="@action" layout="${event-context:item=ServiceName}"/>
+				<parameter name="@service" layout="${event-context:item=ServiceName}"/>
+        <parameter name="@action" layout="${event-context:item=Action}"/>
         <parameter name="@invocation" layout="${message}"/>
 			</target>
+      -->
 		</targets>
 		<rules>
       <!--uncomment to write log to database-->
@@ -30,6 +32,12 @@
       <logger name="*" minlevel="Debug" writeTo="f,c" />
 		</rules>
 	</nlog>
+  <system.web>
+    <!-- uncomment this for earlier versions of iis (<7.5)
+    <httpModules>
+      <add name="WcfMessageCorrelationModule" type="WcfServiceCallLogger.Modules.WcfMessageCorrelationModule" />
+    </httpModules>-->
+  </system.web>
 	  <system.webServer>
 		<modules runAllManagedModulesForAllRequests="true" >
 				<add name="WcfMessageCorrelationModule" type="WcfServiceCallLogger.Modules.WcfMessageCorrelationModule, WcfServiceCallLogger, Version=1.0.0.0, Culture=neutral"/>
@@ -55,4 +63,5 @@
 		 </endpointBehaviors>
 	 </behaviors>
 	 </system.serviceModel>
+
 </configuration>
